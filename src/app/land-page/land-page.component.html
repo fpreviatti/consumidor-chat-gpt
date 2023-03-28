@@ -1,40 +1,65 @@
 <div class="row">
-    <form class="col s12" (submit)="onSubmit()">
-      <div class="row">
-        <div class="input-field col s12">
-          
-          <input
+  <form class="col s12" (submit)="onSubmit()">
+    <div class="row">
+      <div class="input-field col s12">
+        <input
           [(ngModel)]="this.pergunta"
           id="pergunta"
           type="text"
           name="nome"
           required
         />
-          <label for="textarea1">Digite uma pergunta para enviar ao Chat GPT!</label>
-        </div>
-
-        <div class="input-field col s12">
-            
-            Resposta: 
-            
-            
-            <p >{{this.resposta}}</p>
-            
-          </div>
-
-        
-      </div>
-      
-      <div class="botao-wrapper">
-        <button
-          class="btn waves-effect waves-light purple darken-4"
-          type="submit"
-          
+        <label for="textarea1"
+          >Digite uma pergunta para enviar ao Chat GPT!</label
         >
-          Enviar
-        </button>
       </div>
-      
-    </form>
-    
-  </div>
+
+      <div class="input-field col s12">
+        Resposta:
+
+        <p>{{ this.resposta }}</p>
+      </div>
+    </div>
+
+    <div class="botao-wrapper">
+      <button
+        class="btn waves-effect waves-light purple darken-4"
+        type="submit"
+      >
+        Enviar
+      </button>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input
+          [(ngModel)]="this.descricao"
+          id="descricao"
+          type="text"
+          name="nome"
+          required
+        />
+        <label for="textarea1"
+          >Digite uma descrição para que o chatgpt envie uma imagem para
+          você!</label
+        >
+      </div>
+
+      <div class="input-field col s12">
+        Imagem:
+        
+        <p><img src="{{ this.imagemRetornada }}"></p>
+      </div>
+    </div>
+
+    <div class="botao-wrapper">
+      <button
+        (click)="enviarDescricao()"
+        class="btn waves-effect waves-light purple darken-4"
+        type="button"
+      >
+        Enviar
+      </button>
+    </div>
+  </form>
+</div>

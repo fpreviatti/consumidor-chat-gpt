@@ -1,3 +1,4 @@
+import { DescricaoImagemObservableService } from './../../service/descricao-imagem-observable.service';
 import { PerguntaObservableService } from './../../service/pergunta-observable.service';
 
 import { OnInit } from '@angular/core';
@@ -23,13 +24,17 @@ export class LandPageComponent implements OnInit {
 
   results: any;
    apiURL: any;
+   imagemRetornada: any;
+   descricao: any;
   
   
-  constructor( private router: Router, private perguntaObservableService: PerguntaObservableService) {
+  constructor( private router: Router, private perguntaObservableService: PerguntaObservableService, private descricaoImagemObservableService: DescricaoImagemObservableService) {
     
     this.texto = '';
     this.pergunta = '';
     this.resposta = '';
+    this.imagemRetornada = '';
+    this.descricao = '';
     
   }
 
@@ -62,6 +67,33 @@ export class LandPageComponent implements OnInit {
 
     this.resposta = (response.choices[0].message.content);
 
+  }
+
+  getImagem(response: any){
+    console.log(response);
+
+    this.imagemRetornada = (response.data[0].url);
+    
+  }
+
+  enviarDescricao(){
+
+    console.log(this.descricao);
+
+    this.descricaoImagemObservableService.post(this.descricao).subscribe(
+      response =>  this.getImagem(response) ,
+      error => console.log(error)
+    );
+
+    console.log('resposta chat gpt: ' +this.imagemRetornada);
+
+    // this.perguntaObservableService.post(this.pergunta).subscribe(
+    //   response =>  this.getResposta(response) ,
+    //   error => console.log(error)
+    // );
+
+    // console.log('resposta chat gpt: ' +this.resposta);
+    
   }
 
 }

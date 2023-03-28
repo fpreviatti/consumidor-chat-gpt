@@ -7,22 +7,23 @@ import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class PerguntaObservableService {
-  URL = 'https://api.openai.com/v1/chat/completions';
+export class DescricaoImagemObservableService {
+  URL = 'https://api.openai.com/v1/images/generations';
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: ['Bearer seu-token'],
+      Authorization: ['Bearer seutoken'],
     }),
   };
 
   constructor(private httpClient: HttpClient) {}
 
-  post(pergunta: string): Observable<string> {
+  post(descricao: string): Observable<string> {
     const body = {
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: pergunta }],
+      "prompt": descricao,
+      "n": 1,
+      "size": "1024x1024"
     };
     return this.httpClient
       .post<string>(this.URL, JSON.stringify(body), this.httpOptions)
