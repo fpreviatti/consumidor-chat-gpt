@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ export class DescricaoImagemObservableService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: ['Bearer seutoken'],
+      Authorization: ['Bearer teste'],
     }),
   };
 
@@ -30,7 +30,10 @@ export class DescricaoImagemObservableService {
       .pipe(retry(2), catchError(this.erro));
   }
 
-  erro() {
+  erro(error: HttpErrorResponse) {
+    
+    alert("Erro código: " +error.status);
     return 'Ocorreu um erro';
+
   }
 }
